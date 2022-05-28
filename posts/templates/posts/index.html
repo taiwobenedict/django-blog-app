@@ -1,0 +1,254 @@
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <link rel="stylesheet" href="{% static 'icons/css/all.css' %} " />
+    {% block css_files %} {% endblock %}
+
+    <!-- <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %} " /> -->
+    <title>Blog</title>
+  </head>
+  <body>
+    <!-- Header Starts -->
+    <header id="header">
+      <div class="header-container container">
+        <!-- logo -->
+        <h1 class="logo">Blog</h1>
+        <div class="toggler">
+          <i class="fas fa-bars fa-2x"></i>
+        </div>
+
+        {% if user.is_authenticated %}
+        <!-- navigation -->
+        <nav class="main-nav">
+          <ul class="links">
+            <li class="link"><a href="{% url 'index' %}">Home</a></li>
+            <li class="link"><a href="#">About</a></li>
+            <li class="link profile-link">
+              <a href="{% url 'own-profile' %}">Profile</a>
+            </li>
+            <li class="link"><a href="{% url 'inbox' %}">Inbox</a></li>
+            <li class="link profile-link">
+              <a href="{% url 'add-post' %}">Add Post</a>
+            </li>
+            <li class="link"><a href="{% url 'logout' %}">logout</a></li>
+            <!-- search -->
+            <form action="{% url 'index' %}" method="get" class="d-flex" id="search-form" >
+              <input
+                type="search"
+                name="search"
+                id="search"
+                value="{{search}}"
+                class="input"
+              />
+              <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+          </ul>
+        </nav>
+        {% endif %}
+      </div>
+    </header>
+    <!-- Header Ends -->
+
+    <!-- Main Stars -->
+    {% block content %}
+    <main id="main" class="container">
+      <aside class="main-side">
+        <!-- Post Card Starts -->
+        {% for post in posts %}
+        <div class="post-card">
+          <div class="d-flex">
+            <a href="{% url 'user-profile' post.owner.profile.id %}">
+              <img
+                src="{{post.owner.profile.profile_picture.url}}"
+                alt="User Imgage"
+                class="user-image"
+              />
+            </a>
+            <div class="post-heading">
+              <h4 class="username">{{post.owner.username|title}}</h4>
+              <small class="date">{{post.created}}</small>
+            </div>
+          </div>
+          <div class="post-info">
+            <h3 class="title">{{post.title|default_if_none:''}}</h3>
+            {% if post.image.name != 'kindpng_4517876.png' %}
+            <img src="{{post.image.url}}" alt="" class="image" />
+            {% endif %}
+            <p class="body">
+              {% if post.body|length > 150 %}
+              {{post.body|linebreaksbr|slice:":150"}}...
+              <a
+                href="{% url 'post-details' post.id %}"
+                class="read-more cl-fb"
+              >
+                Read more
+              </a>
+              {% else %} {{post.body|default_if_none:'nothing'|linebreaksbr}} 
+              
+              {% endif %}
+            </p>
+          </div>
+          <div class="comments d-flex">
+            <a href="{% url 'post-details' post.id %}"
+              ><i class="far fa-comment-alt comment">
+                {{post.comments.all|length}}</i
+              ></a
+            >
+            <div class="">
+              <i class="fa{% if request.user in post.likes.all %}s{% else %}r{% endif %} fa-thumbs-up likes" id="{{post.id}}"></i>
+              <span class="total_likes">{{post.total_likes}}</span>
+              
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <h1>Result not found for "{{search}}"</h1>
+
+        {% endfor %}
+
+        <!-- Post Card Ends -->
+        <p class="data-loading">Load Data</p>
+      </aside>
+      <aside class="side-bar">
+        <a href="{% url 'own-profile' %}" class="own-profile">
+          <h1 class="head">MY PROFILE</h1>
+        </a>
+
+        <a href="{% url 'add-post' %}" class="btn btn-secondary contact mg-y">
+          ADD POST
+        </a>
+      </aside>
+    </main>
+    <!-- Main Ends -->
+    {% endblock %}
+
+    <script src="{% static 'app.js' %}"></script>
+    {% block script %}
+    <script>
+      document.body.addEventListener("click", likePost);
+      function likePost(e) {
+        if (e.target.classList.contains("likes")) {
+          e.preventDefault();
+          const like = e.target;
+          const id = like.id;
+
+          const csrftoken = document.cookie.slice(10);
+          fetch("{% url 'like-post' %}", {
+            method: "POST",
+            headers: {
+              "X-CSRFToken": csrftoken,
+              "X-Requested-With": "XMLHttpRequest",
+            },
+            mode: "same-origin",
+            body: JSON.stringify({ id: id }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+      
+              if (!data.liked) {
+                like.classList.replace('far','fas');
+              } else {
+                like.classList.replace('fas','far');
+              }
+              like.nextElementSibling.innerText = data.total_likes;
+            });
+        }
+      }
+'88843694273'
+      // Infinite Scrolling with Ajax
+      let mainSide = document.querySelector(".main-side").classList;
+      let laodData = document.querySelector(".data-loading");
+      const paginationLink = document.querySelectorAll(".pagination-link");
+      let formInput = document.getElementById('search')
+    
+
+      const option = {
+        root: null,
+        threshold: 0.5,
+      };
+      const observer = new IntersectionObserver(GetData, option);
+      let page = 2;
+
+      function GetData(entries) {
+        const entry = entries[0];
+
+        if (entry.isIntersecting) {
+          fetch(`${document.location.origin}?${formInput.value !==''?`search=${formInput.value}&`:''}page=${page}`, {
+            headers: {
+              method: "GET",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+          })
+            .then((response) => response.json())
+            .then((posts) => {
+              posts.forEach((post) => {
+                const html = `
+                <div class="post-card">
+                  <div class="d-flex">
+                    <a href="/user_profile/${post.profile_id}">
+                     <img src="${
+                       post.profile_image
+                     }" alt="user-image" class="user-image">
+                    </a>
+                    <div class="post-heading">
+                      <h4 class="username">${post.username}</h4>
+                      <small class="date">${post.date}</small>
+                    </div>
+                  </div>
+                  <div class="post-info">
+                    <h3 class="title">${
+                      post.title === null ? "" : post.title
+                    }</h3>
+                    ${
+                      post.post_image_name == "kindpng_4517876.png"
+                        ? ""
+                        : `<img src="${post.post_image}" alt="" class="image">`
+                    }
+                    <p class="body">
+                      ${
+                        post.body.length > 150
+                          ? post.body.slice(0, 150) +
+                            `... <a href="post_details/${post.post_id}" class="read-more cl-fb">Read more</a>`
+                          : post.body
+                      }
+                    </p>
+                    
+                  </div>
+                    <div class="comments d-flex">
+                      <a href="post_details/${
+                        post.post_id
+                      }"><i class="far fa-comment-alt comment"> ${
+                  post.comment
+                }</i></a>
+                      <div class="">
+                      <i class="fa${post.user_liked?'s':'r'} fa-thumbs-up likes" id="${
+                          post.post_id
+                        }"></i>
+                        <span class="total_likes">${post.total_comment}</span>
+                      </div>
+                    </div>
+                </div> 
+              
+                `;
+                laodData.insertAdjacentHTML("beforeBegin", html);
+                
+
+                if (!post.has_next) {
+                  observer.unobserve(laodData);
+                  laodData.style.display = 'none';
+                }
+              });
+            })
+          page++;
+        }
+      }
+      observer.observe(laodData);
+    </script>
+    {% endblock %}
+  </body>
+</html>

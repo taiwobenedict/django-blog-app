@@ -1,0 +1,26 @@
+{% extends 'posts/index.html' %}
+
+
+{% block content %}
+<div class="container">
+
+  <div class="inbox">
+    <h2>New Messsage({{total_unread}})</h2>
+    <div class="message-container">
+      {% for message in all_messages %} 
+      <a href="{% url 'message-detail' message.id %}">
+        <div class="message-info {% if not message.is_read %} message-read {% endif %}">
+
+            <p>{{message.sender}}</p>
+            <p>{{message.message|truncatechars:"30"}}</p>
+            <p>{{message.created}}</p>
+          </div>
+      </a>
+      {% endfor %}
+      
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %} {% endblock %}

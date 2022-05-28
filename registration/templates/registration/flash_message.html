@@ -1,0 +1,13 @@
+{% if messages %}
+
+{% for message in messages %}
+  <p class="{{message.tags}} message"> {{message}}</p>
+{% endfor %}
+
+{% endif %}
+
+<script>
+  setTimeout(() => {
+    document.querySelector('.message').remove()
+  }, 3000);
+</script>

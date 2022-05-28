@@ -1,0 +1,57 @@
+{% extends 'posts/index.html' %}
+{% block content %}
+
+<div class="container mg-y post-profile-container">
+  <div class="post-editing">
+    <form action="" method="post" enctype="multipart/form-data" >
+      {% csrf_token %}
+      <!-- Form for updating posts -->
+      {% if page == 'update-post' %}
+        {{form.as_p}}
+        <button class="btn btn-secondary contact">Update Post</button>
+      <!-- Form for adding a New post -->
+      {% elif page == 'add-post' %}
+        {{form.as_p}}
+        <button class="btn btn-secondary contact">Post</button>
+      {% endif %}
+    </form>
+  </div> 
+
+  {% if page == 'update-profile' %} 
+  <!-- Form for updating profiles -->
+  <h1>{{request.user.username}}</h1>
+  <form action="" method="post" enctype="multipart/form-data">
+    <div class="profile-editing">
+      {% csrf_token %}
+      <div class="profile-card border">
+        <div class="cover-image">
+          <img src="{{profile.cover_picture.url}}" alt="">
+        {{form.cover_picture}}
+        </div>
+        <div class="profile-image">
+          <img src="{{profile.profile_picture.url}}" alt="">
+          {{form.profile_picture}}
+        </div>
+      </div>
+
+      <div class="profile-info">
+        {% for field in form %}
+          {% if field.name != 'profile_picture' and field.name != 'cover_picture' %}
+            {{field.label_tag}}
+            {{field}}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <button class="btn btn-secondary contact ">Upadate Profile</button>
+    <button class="btn btn-warning contact" type="reset">Reset</button>
+  </form>
+
+  {% endif %}
+</div>
+<!-- container ends -->
+{% endblock %}
+
+
+{% block script %} {% endblock %}

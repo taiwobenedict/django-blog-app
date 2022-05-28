@@ -1,0 +1,99 @@
+{% extends 'posts/index.html' %} {% load static %} {% block content %}
+<main class="container">
+  <div id="profile">
+    <!-- Blog Users Profile section -->
+    <section class="col-1">
+      <div class="user-profile">
+        <img src="{{profile.cover_picture.url}}" alt="" class="cover-pics" />
+        <img src="{{profile.profile_picture.url}}" alt="" class="profile-pics" />
+        <h2 class="name">{{profile.owner.username}}</h2>
+        <p class="intro">{{profile.intro|default_if_none:""}}</p>
+        <nav class="social-nav">
+          <ul class="links d-flex">
+            {% if profile.facebook_link %}
+            <li class="link">
+              <a href="{{profile.facebook_link}}"><i class="fab fa-facebook fa-1.5x cl-fb"></i></a>
+            </li>
+            {% endif %}
+             {% if profile.twitter_link %}
+            <li class="link">
+              <a href="{{profile.twitter_link}}"><i class="fab fa-twitter fa-1.5x cl-twt"></i></a>
+            </li>
+             {% endif %}
+               {% if profile.instagram_link %}
+            <li class="link">
+              <a href="{{instagram_link}}"><i class="fab fa-instagram fa-1.5x cl-inst"></i></a>
+            </li>
+            {% endif %}
+            {% if profile.youtube_link %}
+            <li class="link">
+              <a href="{{profile.youtube_link}}"><i class="fab fa-youtube fa-1.5x cl-ytb"></i></a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+        
+        
+        {% if profile == request.user.profile %}
+        <!-- logged in User Profile -->
+        <section class="own-profile">
+          <a href="{% url 'update-profile' profile.id %}" class="btn btn-secondary don contact">Edit Profile <i class="fas fa-user-edit"></i></a>
+        </section>
+        {% else %}
+
+        <a href="{% url 'message' profile.id %}" class="btn btn-secondary contact">Message <i class="fas fa-paper-plane"></i></a>
+
+        {% endif %}
+      </div>
+
+    </section>
+    
+    <!-- User Info -->
+    <section class="col-2">
+      <ul class="user-info">
+          <li>
+            <h5 class="title">Name:</h5>
+            <p class="name">
+              {{profile.name}}
+            </p>
+          </li>
+          <li>
+            <h5 class="title">About Me:</h5>
+            <p class="about-me">
+              {{profile.about_me}}
+            </p>
+          </li>
+          <li>
+            <h5 class="title d-flex">Phone Number:</h5>
+            <div class="d-flex">
+              <i class="fas fa-phone-alt fa-2m "></i>
+              <p class="number">{{profile.mobile}}</p>
+            </div>
+          </li>
+          <li>
+          <h5 class="title">Occupation:</h5>
+          <p class="occupation">{{profile.occupation}}</p>
+        </li>
+        <li>
+          <h5 class="title">Phone Number:</h5>
+          <p class="occupation">{{profile.country}}</p>
+        </li>
+        <li>
+          <h5 class="title">Email:</h5>
+          <p class="occupation">{{profile.email}}</p>
+        </li>
+      </li>
+        <li>
+          <h5 class="title">Website:</h5>
+          <p class="occupation">{{profile.website_link}}</p>
+        </li>
+      </ul>
+    </section>
+      
+      
+  </div>
+</main>
+
+{% endblock %}
+
+{% block script %} {% endblock %}

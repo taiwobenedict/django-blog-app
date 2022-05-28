@@ -1,0 +1,33 @@
+{% extends 'posts/index.html' %}
+
+{% block content %}
+
+<div class="container">
+  <form action="" method="post" class="user-form">
+    {% csrf_token %}
+    {% if page == 'login' %}
+    <h1 class="form-title">Login</h1>
+    {% include 'registration/flash_message.html'%}
+    {% else %} 
+    <h1 class="form-title">Sign Up</h1>
+    {% endif %}
+    
+
+    {% for field in form %}
+    <div class="form-field">
+      <div class="label">{{field.label}}</div>
+      <div>{{field}}</div> 
+      <div>{{field.errors}}</div>
+    </div>
+    {% endfor %}
+    <button class="btn btn-secondary ">submit</button>
+    {% if page == 'login' %}
+    <p class="auth-question">Don't have an account? <a href="{% url 'sign-up' %}">Sign Up</a></p>
+    <a  class="auth-question" href="{% url 'change-password' %}">Forgot Password?</a>
+    {% else %}
+    <p class="auth-question">Already have an account? <a href="{% url 'login' %}"> Login</a></p>
+    {% endif %}
+  </form>
+</div>
+
+{% endblock %}

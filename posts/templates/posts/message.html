@@ -1,0 +1,54 @@
+{% extends 'posts/index.html' %}
+
+{% block css_files %}
+  <style>
+    .message-container {
+      margin-top: 2em;
+      padding: 2em;
+    }
+
+    .post-editing div {
+      margin-top: 2em;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+
+<div class="conatainer">
+
+  {% if page == 'message_detail' %}
+  <div class="container">
+    <div class="message-container">
+      {{message.message}}
+
+    </div>
+
+  </div>
+  
+  {% else %}
+  
+  <div class="container">
+    
+    {% include 'registration/flash_message.html' %}
+    <form action="" method="post">
+      {% csrf_token %}
+      {% for field in form %}
+      <h2 class="label">Write Your Message</h2>
+      <div class="post-editing">
+        <div>{{field}}</div>
+        
+      </div>
+      {% endfor %}
+      <button class="btn btn-secondary">submit</button>
+    </form>
+  </div>
+  </div>
+
+  {% endif %}
+
+
+ 
+
+{% endblock%}
+
