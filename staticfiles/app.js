@@ -1,28 +1,3 @@
-// const url = `ws://${window.location.host}/ws/like-post/`;
-// const socket = new WebSocket(url);
-// const likeBtn = document.querySelectorAll(".likes");
-// const totalLikes = document.querySelectorAll(".total_likes");
-
-// likeBtn.forEach((like, i) => {
-//   like.addEventListener("click", (e) => {
-//     const likeElement = totalLikes[i];
-
-//     socket.send(
-//       JSON.stringify({
-//         likeId: like.id,
-//       })
-//     );
-
-//     console.log(like.id);
-
-//     socket.onmessage = (e) => {
-//       const postLikes = JSON.parse(e.data);
-//       likeElement.textContent = postLikes.total_likes;
-//       // console.log(postLikes);
-//     };
-//   });
-// });
-
 const toggler = document.querySelector(".toggler");
 const bars = document.querySelector(".toggler i");
 const navHeight = document.querySelector(".main-nav");
@@ -39,14 +14,43 @@ toggler.onclick = () => {
     navHeight.clientHeight == 0 ? navHeight.scrollHeight + 24 : 0;
 };
 
-
-
-document.body.addEventListener('click', function (e) {
-  if (e.target.classList.contains('del-post')) {
-    delModal.classList.toggle('hidden')
+document.body.addEventListener("click", function (e) {
+  if (e.target.classList.contains("del-post")) {
+    delModal.classList.toggle("hidden");
     delModal.onclick = () => {
       delModal.classList.toggle("hidden");
-    }
+    };
   }
-})
+});
 
+// Like Post Asynchroniously
+
+document.body.addEventListener("click", likePost);
+function likePost(e) {
+  
+  if (e.target.classList.contains("likes")) {
+    e.preventDefault();
+    const like = e.target;
+    const id = like.id;
+
+    const csrftoken = document.cookie.slice(10);
+    fetch(`${location.origin}/like_post/`, {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrftoken,
+        "X-Requested-With": "XMLHttpRequest",
+      },
+      mode: "same-origin",
+      body: JSON.stringify({ id: id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (!data.liked) {
+          like.classList.replace("far", "fas");
+        } else {
+          like.classList.replace("fas", "far");
+        }
+        like.nextElementSibling.innerText = data.total_likes;
+      });
+  }
+}

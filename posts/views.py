@@ -4,14 +4,12 @@ from django.db.models import Q
 from posts.forms import CommentForm, PostForm, ProfileForm, MessageForm
 from .models import Comment, Message, Post, Profile
 from django.contrib import messages
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse
 import json
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.core import serializers
 from django.template import defaultfilters
 from .utils import search
 
-from django.core.handlers.wsgi import WSGIRequest
 # Create your views here.
 
 # <=== Home View ===>
@@ -108,7 +106,7 @@ def post_details(request, id):
     comments = Comment.objects.filter(post=post)
 
     if request.method == 'POST':
-        comment = json.load(request)['comment']
+        comment =  json.load(request)['comment']
         form = CommentForm({'body': comment})
         if form.is_valid():
             x = form.save(commit=False)
