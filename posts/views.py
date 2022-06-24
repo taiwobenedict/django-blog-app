@@ -233,7 +233,7 @@ def delete_post(request, id):
 def inbox(request):
     all_messages = Message.objects.filter(reciever=request.user.profile)
     unread_messages = Message.objects.filter(
-        reciever=request.user.profile, is_read=False).count()
+        reciever = request.user.profile, is_read = False).count()
     context = {
         'all_messages': all_messages,
         'page': 'inbox',

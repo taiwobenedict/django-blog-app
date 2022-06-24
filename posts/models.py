@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+# Calling uuid like this "uuid.uuid4()" will break the code. Just leave it like this "uuid.uuid4"
 import uuid
 from django.db.models.signals import post_save, pre_save
 from PIL import Image
@@ -14,7 +15,8 @@ class Post(models.Model):
   created = models.DateTimeField(auto_now_add= True)
   likes = models.ManyToManyField(User, related_name= 'likes', blank= 
   True)
-  id = models.UUIDField(default= uuid.uuid4, unique= True, primary_key= True, editable= False)
+  id = models.UUIDField(max_length=100, default= uuid.uuid4,unique= True, primary_key= True, editable= False)
+
   
   class Meta:
     ordering = ['-created']
@@ -42,7 +44,7 @@ class Comment(models.Model):
   post = models.ForeignKey(Post, on_delete= models.CASCADE, null= True, blank= True, related_name= 'comments')
   body = models.TextField(null=True)
   created = models.DateTimeField(auto_now_add= True)
-  id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+  id = models.UUIDField(max_length=100, default=uuid.uuid4,unique= True, primary_key=True, editable=False)
   
   def __str__(self):
       return self.body
@@ -68,8 +70,8 @@ class Profile(models.Model):
   twitter_link = models.URLField(max_length= 200, null= True, blank= True)
   instagram_link = models.URLField(max_length= 200, null= True, blank= True)
   youtube_link = models.URLField(max_length= 200, null= True, blank= True)
-  id = models.UUIDField(default=uuid.uuid4, unique=True,
-                        primary_key=True, editable=False)
+  id = models.UUIDField(max_length=100, default=uuid.uuid4,
+                       unique= True, primary_key=True, editable=False)
   
   def __str__(self):
       return f'{self.owner} profile'
@@ -92,7 +94,7 @@ class Message(models.Model):
   message = models.TextField(null= True)
   is_read = models.BooleanField(default= False)
   created = models.DateTimeField(auto_now_add= True)
-  id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+  id = models.UUIDField(max_length=100, default=uuid.uuid4,unique= True, primary_key=True, editable=False)
 
   def __str__(self):
     return self.message
