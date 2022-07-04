@@ -62,7 +62,7 @@ a {
 .container {
   width: 90%;
   max-width: 950px;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .border {
@@ -269,7 +269,7 @@ input[type="url"] {
 }
 
 .main-side {
-  margin: auto 0;
+  margin: 0 auto;
   flex-grow: 1;
 }
 
@@ -281,7 +281,6 @@ input[type="url"] {
   background-color: var(--cl-light);
   max-width: 550px;
   margin-bottom: 2em;
-  margin: auto 0;
 }
 
 .post-card .user-image {
@@ -313,7 +312,7 @@ input[type="url"] {
 }
 
 .post-card .body {
-  margin: 0 1em;
+  margin: 1em 0;
 }
 
 .post-card .comments {
@@ -357,7 +356,7 @@ input[type="url"] {
   }
 
   .main-nav .link {
-    margin: 0.5e 0m;
+    margin: 0.5em;
   }
 
   .main-side {
@@ -396,7 +395,7 @@ input[type="url"] {
 
 .user-form {
   max-width: 32rem;
-  margin: auto 0;
+  margin: 0 auto;
   margin-top: 2em;
 }
 
@@ -452,7 +451,7 @@ input[type="url"] {
 .post-profile-container {
   margin-top: 2em;
   max-width: 500px;
-  margin: auto 0;
+  margin: 0 auto;
 }
 
 .user-profile {
@@ -505,7 +504,7 @@ input[type="url"] {
 .user-profile .contact {
   margin-top: 2em;
   display: block;
-  margin: auto 0;
+  margin: 0 auto;
   max-width: 50%;
 }
 
@@ -638,7 +637,7 @@ input[type="url"] {
 
 .post-detail-editing {
   max-width: 550px;
-  margin: auto 0;
+  margin: 0 auto;
 }
 
 .post-detail {
@@ -678,7 +677,7 @@ input[type="url"] {
   display: block;
   outline: none;
   width: 100%;
-  border: solid 1px transparent;
+  border: solid 1px var(--cl-primary);
   padding: 0.4em;
   color: inherit;
   font-size: inherit;
@@ -730,7 +729,7 @@ input[type="url"] {
 }
 
 .message-container {
-  margin: auto 0;
+  margin: 0 auto;
   margin-top: 2em;
   padding: 2em;
   max-width: 650px;
