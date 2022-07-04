@@ -32,6 +32,7 @@ def index(request):
     else: 
         all_posts = Post.objects.all()
         paginator = Paginator(all_posts, 3)
+        
 
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         current_page = request.GET.get('page')

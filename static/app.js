@@ -84,13 +84,10 @@ function GetData(entries) {
     )
       .then((response) => response.json())
       .then((posts) => {
-        console.log(posts);
-        posts.forEach((post, index) => {
-          // observer.unobserve(laodData);
-          // laodData.style.display = "none";
-          // console.log(post.has_next);
-          if (!post.has_next === true) {
-            const html = `
+        posts.forEach((post) => {
+          console.log(post.has_next);
+
+          const html = `
                   <div class="post-card">
                     <div class="d-flex">
                       <a href="/user_profile/${post.profile_id}">
@@ -124,22 +121,24 @@ function GetData(entries) {
                   <a href="post_details/${
                     post.post_id
                   }"><i class="far fa-comment-alt comment"> ${
-              post.comment
-            }</i></a>
+            post.comment
+          }</i></a>
                   <div class="">
                     <i class="fa${
                       post.user_liked ? "s" : "r"
                     } fa-thumbs-up likes" id="${post.post_id}"></i>
                     <span class="total_likes">${post.total_comment}</span>
-                </div>
-              </div>
-            </div> 
-                  </div> 
-            </div> 
-                  
-                  `;
-            laodData.insertAdjacentHTML("beforeBegin", html);
-            console.log(post.has_next);
+                    </div>
+                    </div>
+                    </div> 
+                    </div> 
+            </div>
+            `;
+          laodData.insertAdjacentHTML("beforeBegin", html);
+
+          if (!post.has_next) {
+            observer.unobserve(laodData)
+            laodData.style.display = 'none'
           }
         });
       });

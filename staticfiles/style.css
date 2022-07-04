@@ -30,7 +30,12 @@ body {
   /* background-color: red; */
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 500;
 }
 
@@ -57,7 +62,7 @@ a {
 .container {
   width: 90%;
   max-width: 950px;
-  margin-inline: auto;
+  margin: auto;
 }
 
 .border {
@@ -150,7 +155,6 @@ a {
   background-color: #bb2d3b;
   border-color: #b02a37;
 }
-
 
 input[type="text"],
 input[type="password"],
@@ -265,7 +269,7 @@ input[type="url"] {
 }
 
 .main-side {
-  margin-inline: auto;
+  margin: auto 0;
   flex-grow: 1;
 }
 
@@ -277,7 +281,7 @@ input[type="url"] {
   background-color: var(--cl-light);
   max-width: 550px;
   margin-bottom: 2em;
-  margin-inline: auto;
+  margin: auto 0;
 }
 
 .post-card .user-image {
@@ -300,7 +304,7 @@ input[type="url"] {
 }
 
 .post-card .username {
-  color: var(--cl-primary)
+  color: var(--cl-primary);
 }
 
 .post-card .image {
@@ -309,7 +313,7 @@ input[type="url"] {
 }
 
 .post-card .body {
-  margin-block: 1em;
+  margin: 0 1em;
 }
 
 .post-card .comments {
@@ -320,12 +324,12 @@ input[type="url"] {
 .post-card .comments i {
   color: var(--cl-primary);
   padding-right: 1em;
-  transition: 0.4s;
+  cursor: pointer;
 }
 
-.post-card .comments i:hover {
+/* .post-card .comments .like-color {
   color: var(--cl-secondary);
-}
+} */
 
 .post-card .post-control {
   margin-top: 1em;
@@ -353,7 +357,7 @@ input[type="url"] {
   }
 
   .main-nav .link {
-    margin-inline: 0.5em;
+    margin: 0.5e 0m;
   }
 
   .main-side {
@@ -392,7 +396,7 @@ input[type="url"] {
 
 .user-form {
   max-width: 32rem;
-  margin-inline: auto;
+  margin: auto 0;
   margin-top: 2em;
 }
 
@@ -435,6 +439,7 @@ input[type="url"] {
   display: inline-block;
   font-size: 1rem;
   margin-left: 2em;
+  color: #0d6efd;
 }
 
 .auth-question a {
@@ -443,10 +448,11 @@ input[type="url"] {
 
 /* <---- Profile Page Styling ----> */
 
-#profile, .post-profile-container {
+#profile,
+.post-profile-container {
   margin-top: 2em;
   max-width: 500px;
-  margin-inline: auto;
+  margin: auto 0;
 }
 
 .user-profile {
@@ -499,11 +505,11 @@ input[type="url"] {
 .user-profile .contact {
   margin-top: 2em;
   display: block;
-  margin-inline: auto;
+  margin: auto 0;
   max-width: 50%;
 }
 
-#profile .user-info  {
+#profile .user-info {
   border: 1px solid var(--cl-primary);
   padding-left: 1em;
   padding: 1em;
@@ -526,23 +532,25 @@ input[type="url"] {
 }
 
 @media (min-width: 900px) {
-  #profile, .profile-editing {
+  #profile,
+  .profile-editing {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     max-width: initial;
   }
 
-  #profile .col-1, .profile-card {
+  #profile .col-1,
+  .profile-card {
     width: 35%;
   }
-  #profile .col-2, .profile-info{
+  #profile .col-2,
+  .profile-info {
     width: 57%;
   }
 
   .post-profile-container {
     max-width: 950px;
-
   }
 }
 
@@ -569,11 +577,9 @@ input[type="url"] {
   transition: 0.4s;
 }
 
-
 .hidden {
   display: none;
 }
-
 
 /* User Profile Editing */
 
@@ -583,13 +589,12 @@ input[type="url"] {
 
 .profile-editing .profile-info input,
 .post-editing input,
-.post-editing  textarea,
+.post-editing textarea,
 .profile-editing .profile-info textarea {
   margin-bottom: 1em;
   margin-top: 0.3em;
   border: solid var(--cl-primary) 1px;
   transition: 0.4s;
- 
 }
 .profile-editing .profile-info input:hover,
 .profile-editing .profile-info input:focus,
@@ -599,7 +604,6 @@ input[type="url"] {
 .post-editing textarea:hover,
 .post-editing textarea:focus {
   box-shadow: 0px 0px 5px 1px var(--cl-primary);
-  
 }
 
 .profile-editing .profile-info textarea,
@@ -607,7 +611,7 @@ input[type="url"] {
   width: 100%;
   border-radius: 5px;
   outline: none;
-  padding:0.4em;
+  padding: 0.4em;
 }
 
 .cover-image img {
@@ -630,12 +634,11 @@ input[type="url"] {
   margin-top: -5.5rem;
 }
 
-
 /* Post Details Styling... */
 
 .post-detail-editing {
   max-width: 550px;
-  margin-inline: auto;
+  margin: auto 0;
 }
 
 .post-detail {
@@ -657,7 +660,6 @@ input[type="url"] {
 .comments {
   margin-top: 2em;
 }
-
 
 .comments .commentor-image {
   align-items: center;
@@ -683,7 +685,6 @@ input[type="url"] {
   border-radius: 0.25rem;
 }
 
-
 .commentor-image img {
   border-radius: 50%;
   height: 2.5em;
@@ -691,18 +692,18 @@ input[type="url"] {
 }
 
 .commentor-image h6 {
-  font-size:20;
+  font-size: 20;
 }
 
 @media (min-width: 900px) {
   .post-detail-editing {
     max-width: initial;
   }
-  
+
   .post-detail {
     display: flex;
   }
-  
+
   .post-detail img {
     padding-right: 1em;
     /* border-right: solid 2px #ccc; */
@@ -711,11 +712,8 @@ input[type="url"] {
   .post-detail .post-article {
     padding-left: 1em;
   }
-
-  
 }
 
-  
 /* Inbox page */
 
 .message-read {
@@ -729,15 +727,17 @@ input[type="url"] {
   align-items: center;
   flex-direction: column;
   height: 80%;
-
 }
 
 .message-container {
+  margin: auto 0;
+  margin-top: 2em;
+  padding: 2em;
   max-width: 650px;
   width: 90%;
   border: solid 1px var(--cl-primary);
   border-radius: 5px;
-  background-color: var(--cl-light)
+  background-color: var(--cl-light);
 }
 
 .message-info {

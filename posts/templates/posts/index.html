@@ -18,11 +18,11 @@
       <div class="header-container container">
         <!-- logo -->
         <h1 class="logo">Blog</h1>
+        {% if user.is_authenticated %}
         <div class="toggler">
           <i class="fas fa-bars fa-2x"></i>
         </div>
 
-        {% if user.is_authenticated %}
         <!-- navigation -->
         <nav class="main-nav">
           <ul class="links">
@@ -60,62 +60,59 @@
       <aside class="main-side">
         <!-- Post Card Starts -->
         {% for post in posts %}
-        <div class="post-card">
-          <div class="d-flex">
-            <a href="{% url 'user-profile' post.owner.profile.id %}">
-              <img
-                src="{{post.owner.profile.profile_picture.url}}"
-                alt="User Imgage"
-                class="user-image"
-              />
-            </a>
-            <div class="post-heading">
-              <h4 class="username">{{post.owner.username|title}}</h4>
-              <small class="date">{{post.created}}</small>
-            </div>
-          </div>
-          <div class="post-info">
-            <h3 class="title">{{post.title|default_if_none:''}}</h3>
-            {% if post.image.name != 'kindpng_4517876.png' %}
-            <img src="{{post.image.url}}" alt="" class="image" />
-            {% endif %}
-            <p class="body">
-              {% if post.body|length > 150 %}
-              {{post.body|linebreaksbr|slice:":150"}}...
-              <a
-                href="{% url 'post-details' post.id %}"
-                class="read-more cl-fb"
-              >
-                Read more
+          <div class="post-card">
+            <div class="d-flex">
+              <a href="{% url 'user-profile' post.owner.profile.id %}">
+                <img
+                  src="{{post.owner.profile.profile_picture.url}}"
+                  alt="User Imgage"
+                  class="user-image"
+                />
               </a>
-              {% else %} {{post.body|default_if_none:'nothing'|linebreaksbr}} 
-              
+              <div class="post-heading">
+                <h4 class="username">{{post.owner.username|title}}</h4>
+                <small class="date">{{post.created}}</small>
+              </div>
+            </div>
+            <div class="post-info">
+              <h3 class="title">{{post.title|default_if_none:''}}</h3>
+              {% if post.image.name != 'kindpng_4517876.png' %}
+              <img src="{{post.image.url}}" alt="" class="image" />
               {% endif %}
-            </p>
-          </div>
-          <div class="comments d-flex">
-            <a href="{% url 'post-details' post.id %}"
-              ><i class="far fa-comment-alt comment">
-                {{post.comments.all|length}}</i
-              ></a
-            >
-            <div class="">
-              <i class="fa{% if request.user in post.likes.all %}s{% else %}r{% endif %} fa-thumbs-up likes" id="{{post.id}}"></i>
-              <span class="total_likes">{{post.total_likes}}</span>
-            
+              <p class="body">
+                {% if post.body|length > 150 %}
+                {{post.body|linebreaksbr|slice:":150"}}...
+                <a
+                  href="{% url 'post-details' post.id %}"
+                  class="read-more cl-fb"
+                >
+                  Read more
+                </a>
+                {% else %} {{post.body|default_if_none:'nothing'|linebreaksbr}} 
+                
+                {% endif %}
+              </p>
+            </div>
+            <div class="comments d-flex">
+              <a href="{% url 'post-details' post.id %}"
+                ><i class="far fa-comment-alt comment">
+                  {{post.comments.all|length}}</i
+                ></a
+              >
+              <div class="">
+                <i class="fa{% if request.user in post.likes.all %}s{% else %}r{% endif %} fa-thumbs-up likes" id="{{post.id}}"></i>
+                <span class="total_likes">{{post.total_likes}}</span>
               
+                
+              </div>
             </div>
           </div>
-        </div>
-        {% empty %}
-        <h1>Result not found for "{{search}}"</h1>
-
-        {% endfor %}
+          {% empty %}
+          {% if search %}<h1>No post found for "{{search}}"</h1>{% else %}<h1>No Post Found!</h1>{% endif %}
+          {% endfor %}
+          <p class="data-loading">Load new Data</p>
 
         <!-- Post Card Ends -->
-        {% if paginator.count != 0 %}
-        <p class="data-loading">Load Data</p>
-        {% endif %}
 
       </aside>
       <aside class="side-bar">

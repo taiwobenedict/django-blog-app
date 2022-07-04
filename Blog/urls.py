@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('posts.urls')),      
     path('registration/', include('registration.urls')),
-    path('api/', include('api.urls'))
+    # path('api/', include('api.urls'))
 
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)\
-  + static(settings.STATIC_URL, document_root= settings.STATIC_URL)
+    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
