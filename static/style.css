@@ -280,6 +280,7 @@ input[type="url"] {
   padding-bottom: 0.4em;
   background-color: var(--cl-light);
   max-width: 550px;
+  margin: 0 auto;
   margin-bottom: 2em;
 }
 
@@ -743,4 +744,12 @@ input[type="url"] {
   display: flex;
   justify-content: space-between;
   padding: 1em;
+}
+
+
+.data-loading {
+  display: block;
+  margin: 0 auto;
+  width: 3rem;
+  height: 3rem;
 }

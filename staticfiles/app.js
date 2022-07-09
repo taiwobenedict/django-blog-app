@@ -65,9 +65,9 @@ const option = {
   threshold: 0.5,
 };
 const observer = new IntersectionObserver(GetData, option);
-let page = 2;
 
 function GetData(entries) {
+  let page = 2;
   const entry = entries[0];
 
   if (entry.isIntersecting) {
@@ -84,9 +84,8 @@ function GetData(entries) {
     )
       .then((response) => response.json())
       .then((posts) => {
-        posts.forEach((post) => {
-          console.log(post.has_next);
-
+        posts[0].forEach((post) => {
+          
           const html = `
       <div class="post-card">
 
@@ -121,11 +120,12 @@ function GetData(entries) {
       `;
           laodData.insertAdjacentHTML("beforeBegin", html);
 
-          if (!post.has_next) {
-            observer.unobserve(laodData);
-            laodData.style.display = "none";
-          }
+          
         });
+
+        if (posts[1].page_has_next === false) {
+          laodData.style.display = 'none'
+        }
       });
     page++;
   }

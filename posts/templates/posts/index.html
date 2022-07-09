@@ -107,10 +107,13 @@
               </div>
             </div>
           </div>
+         
           {% empty %}
           {% if search %}<h1>No post found for "{{search}}"</h1>{% else %}<h1>No Post Found!</h1>{% endif %}
           {% endfor %}
-          <p class="data-loading">Load new Data</p>
+          
+            {% if posts.has_next %} <img class="data-loading" src="{% static 'admin_images/Floating rays.gif '%}" alt=""> {% endif %}
+
 
         <!-- Post Card Ends -->
 

@@ -35,13 +35,14 @@ def index(request):
         
 
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        current_page = request.GET.get('page')
+        current_page =  request.GET.get('page')
         try:
             posts = paginator.page(current_page)
         except EmptyPage:
             posts = paginator.page(paginator.num_pages)
         except PageNotAnInteger:
             posts = paginator.page(1)
+            
         data = []
         for post in posts:
             data.append({
@@ -56,12 +57,12 @@ def index(request):
                 'body': defaultfilters.linebreaksbr(post.body),
                 'comment': post.comments.all().count(),
                 'total_comment': post.total_likes(),
-                'has_next': posts.has_next(),
                 'user_liked': post.likes.filter(id=request.user.id).exists()
 
             })
 
-        return JsonResponse(data, safe=False)
+        return JsonResponse([data, {"page_has_next": posts.has_next()}], safe=False)
+
 
     context = {
         'posts': paginator.page(current_page),
