@@ -32,6 +32,9 @@ ALLOWED_HOSTS = [os.getenv('APP_HOST'), '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    # 3rd party apps
+    'storages',
+
     # 'channels',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,8 +46,6 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'registration.apps.RegistrationConfig',
 
-    # 3rd party apps
-    'storages',
 ]
 
 MIDDLEWARE = [
@@ -163,10 +164,10 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
 
 
 # S3 bucket settings
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_KEY')
 AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 if os.getcwd() == '/app':
