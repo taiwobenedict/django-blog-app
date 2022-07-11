@@ -151,6 +151,13 @@ MEDIA_URL = f"https://mydjangoimage-bucket.s3.amazonaws.com/media/"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# S3 bucket settings
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
+
+
 
 # SENDING EMAIL CONFIGURATIONS
 
@@ -161,13 +168,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'taiwowebdemo@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
 
-
-
-# S3 bucket settings
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_KEY')
-AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 if os.getcwd() == '/app':
