@@ -171,4 +171,4 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
 
 
 if os.getcwd() == '/app':
-    DEBUG = False
+    DEBUG = True
