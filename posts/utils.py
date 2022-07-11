@@ -1,8 +1,7 @@
+
 from .models import Post
 from django.db.models import Q
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.template import defaultfilters
-from django.http import JsonResponse
+from django.core.paginator import Paginator
 
 
 def search(request):

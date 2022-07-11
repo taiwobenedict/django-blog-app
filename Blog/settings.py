@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.getenv('IS_DEVELOPMENT') == 'True')
+DEBUG = True
 
 ALLOWED_HOSTS = [os.getenv('APP_HOST'), '127.0.0.1']
 
@@ -41,11 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # My Apps
     'posts.apps.PostsConfig',
-    'registration.apps.RegistrationConfig'
+    'registration.apps.RegistrationConfig',
+
+    # 3rd party apps
+    'storages',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -139,7 +143,7 @@ STATIC_ROOT = BASE_DIR/'staticfiles'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_ROOT = BASE_DIR/'static/images'
-MEDIA_URL = '/image/'
+MEDIA_URL = f"https://mydjangoimage-bucket.s3.amazonaws.com/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -155,6 +159,15 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'taiwowebdemo@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
+
+
+
+# S3 bucket settings
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
+
 
 if os.getcwd() == '/app':
     DEBUG = False

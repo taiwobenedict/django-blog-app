@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 import uuid
 from django.db.models.signals import post_save, pre_save
 from PIL import Image
+from .img import image_resize
 
 # Create your models here.
 
@@ -27,10 +28,8 @@ class Post(models.Model):
   def save(self, *args, **kwargs):
     if (self.image == None) or (self.image == ''):
       self.image = 'kindpng_4517876.png'
-    super().save(args, kwargs)
-    img = Image.open(self.image.path)
-    img.thumbnail((500, 500))
-    img.save(self.image.path)
+    image_resize(self.image, 512, 512)
+    super().save(*args, **kwargs)
   
   def total_likes(self):
     total = self.likes.count()
@@ -81,11 +80,8 @@ class Profile(models.Model):
       self.profile_picture = 'kindpng_4517876.png'
     elif (self.cover_picture == None) or (self.cover_picture == ''):
       self.cover_picture = 'kindpng_4517876.png'
-    super().save(args, kwargs)
-    img = Image.open(self.profile_picture.path)
-    print(img.height)
-    img.thumbnail((300, 300))
-    img.save(self.profile_picture.path)
+    image_resize(self.image, 300, 300)
+    super().save(*args, **kwargs)
 
 
 class Message(models.Model):

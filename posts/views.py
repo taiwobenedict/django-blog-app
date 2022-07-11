@@ -9,6 +9,7 @@ import json
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.template import defaultfilters
 from .utils import search
+from PIL import Image
 
 # Create your views here.
 

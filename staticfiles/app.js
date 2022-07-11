@@ -66,8 +66,8 @@ const option = {
 };
 const observer = new IntersectionObserver(GetData, option);
 
+let page = 2;
 function GetData(entries) {
-  let page = 2;
   const entry = entries[0];
 
   if (entry.isIntersecting) {
@@ -85,47 +85,55 @@ function GetData(entries) {
       .then((response) => response.json())
       .then((posts) => {
         posts[0].forEach((post) => {
-          
           const html = `
-      <div class="post-card">
+    <div class="post-card">
 
-          <div class="d-flex">
-            <a href="/user_profile/${post.profile_id}">
-              <img src="${post.profile_image}" alt="user-image" class="user-image" />
-            </a>
-            <div class="post-heading">
-              <h4 class="username">${post.username}</h4>
-              <small class="date">${post.date}</small>
-            </div>
+        <div class="d-flex">
+          <a href="/user_profile/${post.profile_id}">
+            <img src="${
+              post.profile_image
+            }" alt="user-image" class="user-image" />
+          </a>
+          <div class="post-heading">
+            <h4 class="username">${post.username}</h4>
+            <small class="date">${post.date}</small>
           </div>
-        
-          <div class="post-info">
-            <h3 class="title">${post.title === null ? "" : post.title}</h3>
-            ${post.post_image_name == "kindpng_4517876.png"
+        </div>
+      
+        <div class="post-info">
+          <h3 class="title">${post.title === null ? "" : post.title}</h3>
+          ${
+            post.post_image_name == "kindpng_4517876.png"
               ? ""
               : `<img src="${post.post_image}" alt="" class="image">`
-            }
-            <p class="body">${post.body.length > 150 ? post.body.slice(0, 150) + `... <a href="post_details/${post.post_id}" class="read-more cl-fb">Read more</a>` : post.body}</p>
+          }
+          <p class="body">${
+            post.body.length > 150
+              ? post.body.slice(0, 150) +
+                `... <a href="post_details/${post.post_id}" class="read-more cl-fb">Read more</a>`
+              : post.body
+          }</p>
+        </div>
+        
+        <div class="comments d-flex">
+          <a href="post_details/${
+            post.post_id
+          }"><i class="far fa-comment-alt comment"> ${post.comment}</i></a>
+          <div class="">
+            <i class="fa${
+              post.user_liked ? " s" : "r"
+            } fa-thumbs-up likes" id="${post.post_id}"></i>
+            <span class="total_likes">${post.total_comment}</span>
           </div>
-          
-          <div class="comments d-flex">
-            <a href="post_details/${post.post_id}"><i class="far fa-comment-alt comment"> ${post.comment}</i></a>
-            <div class="">
-              <i class="fa${post.user_liked ? " s" : "r"} fa-thumbs-up likes" id="${post.post_id}"></i>
-              <span class="total_likes">${post.total_comment}</span>
-            </div>
-          </div>
-          
-      </div>
-      `;
+        </div>
+        
+    </div>
+    `;
           laodData.insertAdjacentHTML("beforeBegin", html);
-
-          
         });
-
         if (posts[1].page_has_next === false) {
-          laodData.style.display = 'none'
-        }
+          laodData.style.display = "none";
+        } 
       });
     page++;
   }
