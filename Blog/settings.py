@@ -147,7 +147,6 @@ MEDIA_ROOT = BASE_DIR/'static/images'
 MEDIA_URL = '/image/'
 AWS_QUERYSTRING_AUTH = False  
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -157,9 +156,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # S3 bucket settings
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_QUERYSTRING_AUTH = False  
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_KEY')
 AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
+
 
 
 
@@ -175,4 +176,4 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
 
 
 if os.getcwd() == '/app':
-    DEBUG = False
+    DEBUG = True
