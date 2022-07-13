@@ -64,7 +64,7 @@
             <div class="d-flex">
               <a href="{% url 'user-profile' post.owner.profile.id %}">
                 <img
-                  src="{{post.owner.profile.profile_picture.url}}"
+                  src="{{post.owner.profile.ProfileImageUrl}}"
                   alt="User Imgage"
                   class="user-image"
                 />
@@ -76,8 +76,8 @@
             </div>
             <div class="post-info">
               <h3 class="title">{{post.title|default_if_none:''}}</h3>
-              {% if post.image.name != 'kindpng_4517876.png' %}
-              <img src="{{post.image.url}}" alt="" class="image" />
+              {% if post.ImageUrl != '' %}
+              <img src="{{post.ImageUrl}}" alt="" class="image" />
               {% endif %}
               <p class="body">
                 {% if post.body|length > 150 %}

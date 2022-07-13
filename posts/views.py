@@ -11,6 +11,8 @@ from django.template import defaultfilters
 from .utils import search
 from PIL import Image
 
+from Blog import settings
+
 # Create your views here.
 
 # <=== Home View ===>
@@ -49,11 +51,11 @@ def index(request):
             data.append({
                 'post_id': post.id,
                 'profile_id': post.owner.profile.id,
-                'profile_image': post.owner.profile.profile_picture.url,
+                'profile_image': post.owner.profile.ProfileImageUrl(),
                 'username': post.owner.username,
                 'date': defaultfilters.date(post.created, 'M j, Y, g:i a'),
                 'title': post.title,
-                'post_image': post.image.url,
+                'post_image': post.ImageUrl(),
                 'post_image_name': post.image.name,
                 'body': defaultfilters.linebreaksbr(post.body),
                 'comment': post.comments.all().count(),

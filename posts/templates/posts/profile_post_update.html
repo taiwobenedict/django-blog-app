@@ -25,11 +25,11 @@
       {% csrf_token %}
       <div class="profile-card border">
         <div class="cover-image">
-          <img src="{{profile.cover_picture.url}}" alt="">
+          <img src="{{profile.CoverImageUrl}}" alt="">
         {{form.cover_picture}}
         </div>
         <div class="profile-image">
-          <img src="{{profile.profile_picture.url}}" alt="">
+          <img src="{{profile.ProfileImageUrl}}" alt="">
           {{form.profile_picture}}
         </div>
       </div>

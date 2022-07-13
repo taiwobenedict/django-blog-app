@@ -133,7 +133,7 @@ function GetData(entries) {
         });
         if (posts[1].page_has_next === false) {
           laodData.style.display = "none";
-        } 
+        }
       });
     page++;
   }

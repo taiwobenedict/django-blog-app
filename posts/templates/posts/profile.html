@@ -4,8 +4,8 @@
     <!-- Blog Users Profile section -->
     <section class="col-1">
       <div class="user-profile">
-        <img src="{{profile.cover_picture.url}}" alt="" class="cover-pics" />
-        <img src="{{profile.profile_picture.url}}" alt="" class="profile-pics" />
+        <img src="{{profile.CoverImageUrl }}" alt="" class="cover-pics" />
+        <img src="{{profile.ProfileImageUrl }}" alt="" class="profile-pics" />
         <h2 class="name">{{profile.owner.username}}</h2>
         <p class="intro">{{profile.intro|default_if_none:""}}</p>
         <nav class="social-nav">
