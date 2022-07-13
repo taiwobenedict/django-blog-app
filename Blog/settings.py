@@ -144,7 +144,7 @@ STATIC_ROOT = BASE_DIR/'staticfiles'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_ROOT = BASE_DIR/'static/images'
-MEDIA_URL = f"https://mydjangoimage-bucket.s3.amazonaws.com/media/"
+MEDIA_URL = "image/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
