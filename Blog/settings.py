@@ -90,8 +90,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
+        'PASSWORD': 'ajayitaiwo',
+        'HOST': 'djangoblog-db.cwurehb4odrd.us-west-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 }

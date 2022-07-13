@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.contrib.messages.api import success
 from django.shortcuts import redirect, render
 from .forms import SignUpForm
@@ -42,6 +43,13 @@ def user_login(request):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
+
+            try:
+                User.objects.get(username = username)
+            except:
+                messages.error(request, message="User does not exit!!!")
+                return redirect('login')
+
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
