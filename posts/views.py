@@ -122,10 +122,11 @@ def post_details(request, id):
 
             #  Get comment instance
             data = {
-                "image": x.owner.profile.profile_picture.url,
+                "image": x.owner.profile.ProfileImageUrl(),
                 "owner": x.owner.username,
                 "created": defaultfilters.date(x.created, 'M j, Y g:i a'),
-                "body": x.body
+                "body": x.body,
+                "id": x.owner.profile.id
             }
 
             return JsonResponse(data)

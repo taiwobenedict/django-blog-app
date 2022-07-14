@@ -427,7 +427,8 @@ input[type="url"] {
   margin-bottom: 0.2rem;
 }
 
-.errorlist {
+.errorlist,
+.error {
   color: #842029;
   background-color: #f8d7da;
   border-color: #f5c2c7;

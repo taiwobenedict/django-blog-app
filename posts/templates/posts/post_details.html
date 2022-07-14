@@ -36,7 +36,13 @@
       {% for comment in comments %}
 
         <div class="commentor-image">
-          <img src="{{comment.owner.profile.ProfileImageUrl}}" alt="">
+           <a href="{% url 'user-profile' comment.owner.profile.id %}">
+                <img
+                  src="{{post.owner.profile.ProfileImageUrl}}"
+                  alt="User Imgage"
+                  class="user-image"
+                />
+            </a>
           <h6>{{comment.owner}}</h6>
           <p>{{comment.created}}</p>
           <p class="p">{{comment.body}}</p>
@@ -77,7 +83,13 @@
           commentor.style.border = 'solid 1px red;'
           const html = `
           <div class="commentor-image">
-          <img src="${data.image}" alt="">
+            <a href="/user_profile/${data.id}">
+              <img
+                src="${data.image}"
+                alt="User Imgage"
+                class="user-image"
+              />
+          </a>
           <h6>${data.owner}</h6>
           <p>${data.created}</p>
           <p class="p">${data.body}</p>
