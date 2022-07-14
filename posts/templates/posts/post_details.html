@@ -38,12 +38,12 @@
         <div class="commentor-image">
            <a href="{% url 'user-profile' comment.owner.profile.id %}">
                 <img
-                  src="{{post.owner.profile.ProfileImageUrl}}"
-                  alt="User Imgage"
+                  src="{{comment.owner.profile.ProfileImageUrl}}"
+                  alt="{{comment.owner.username}} image"
                   class="user-image"
                 />
             </a>
-          <h6>{{comment.owner}}</h6>
+          <h6>{{comment.owner|title}}</h6>
           <p>{{comment.created}}</p>
           <p class="p">{{comment.body}}</p>
         </div>
@@ -89,11 +89,11 @@
                 alt="User Imgage"
                 class="user-image"
               />
-          </a>
-          <h6>${data.owner}</h6>
-          <p>${data.created}</p>
-          <p class="p">${data.body}</p>
-        </div>
+            </a> 
+            <h6>${data.owner}</h6>
+            <p>${data.created}</p>
+            <p class="p">${data.body}</p>
+          </div>
             `   
           commentor.insertAdjacentHTML('beforeEnd',html)
           form.reset()

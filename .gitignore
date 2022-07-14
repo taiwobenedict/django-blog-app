@@ -1,2 +1,4 @@
 django_env/
 Project.zip
+db.sqlite3
+static/
