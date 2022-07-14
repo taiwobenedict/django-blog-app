@@ -36,7 +36,7 @@
       {% for comment in comments %}
 
         <div class="commentor-image">
-          <img src="{{comment.owner.profile.profile_picture.url}}" alt="">
+          <img src="{{comment.owner.profile.ProfileImageUrl}}" alt="">
           <h6>{{comment.owner}}</h6>
           <p>{{comment.created}}</p>
           <p class="p">{{comment.body}}</p>
